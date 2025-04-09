@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Pastebin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold">JSON Pastebin</a>
+            <div>
+                <a href="/" class="hover:underline">Home</a>
+                <a href="/paste/1" class="ml-4 hover:underline">Sample Paste</a>
+                <a href="/account" class="ml-4 hover:underline">Account</a>
+                <a href="/signup" class="ml-4 hover:underline">Signup</a>
+                <a href="/login" class="ml-4 hover:underline">Login</a>
+            </div>
+        </div>
+    </nav>
+    <main class="flex-grow container mx-auto p-6">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
+            <h1 class="text-3xl font-semibold text-gray-800 mb-4">Create a JSON Paste</h1>
+            <p class="text-gray-600 mb-4">Total Pastes Created: <span id="totalPastes">Loading...</span></p>
+            <form action="/paste" method="POST">
+                <input type="text" name="title" placeholder="Paste Title (optional)" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-3">
+                <textarea name="content" rows="10" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-gray-700" placeholder="Enter your text or JSON here..." required></textarea>
+                <input type="text" name="username" placeholder="Your Username (optional)" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-3">
+                <button type="submit" class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200 shadow-md">Save as JSON</button>
+            </form>
+            <p class="mt-4 text-gray-600 text-sm">After saving, you'll get a link to view, edit, and access raw JSON.</p>
+        </div>
+    </main>
+    <footer class="bg-gray-800 text-white p-4 text-center">
+        <p>© 2025 JSON Pastebin. All rights reserved.</p>
+    </footer>
+    <script>
+        fetch('/api/total-pastes')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('totalPastes').textContent = data.totalPastes;
+            })
+            .catch(error => {
+                console.error('Error fetching total pastes:', error);
+                document.getElementById('totalPastes').textContent = 'Error';
+            });
+    </script>
+</body>
+</html>

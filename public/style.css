@@ -1,0 +1,14 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+textarea {
+    resize: vertical;
+}
